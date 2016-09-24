@@ -1,4 +1,5 @@
 from django.db import models
+from basico.models import Curso, Turno
 import datetime
 
 # Popula o choices usado nos campos de ano
@@ -18,6 +19,20 @@ class PeriodoLetivo(models.Model):
     class Meta:
         verbose_name = 'Período Letivo'
         verbose_name_plural = 'Períodos Letivos'
+    
+    def __str__(self):
+        return self.nome
+
+        
+class Curriculo(models.Model):
+    nome = models.CharField(max_length=255)
+    descricao = models.TextField(verbose_name='descrição')
+    inicio = models.ForeignKey(PeriodoLetivo, verbose_name='início')
+    curso = models.ForeignKey(Curso)
+    turno = models.ForeignKey(Turno)
+    
+    class Meta:
+        verbose_name = 'Currículo'
     
     def __str__(self):
         return self.nome
