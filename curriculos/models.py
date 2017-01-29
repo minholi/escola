@@ -51,7 +51,7 @@ class Serie(models.Model):
         return self.descricao
         
         
-class Grade(models.Model):
+class Componente(models.Model):
     curriculo = models.ForeignKey(Curriculo)
     disciplina = models.ForeignKey(Disciplina)
     serie = ChainedForeignKey(
@@ -60,12 +60,26 @@ class Grade(models.Model):
         chained_model_field="curriculo", 
         show_all=False, 
         auto_choose=True,
-        sort=True
+        sort=True,
+        verbose_name='série'
     )
-    obrigatoria = models.BooleanField(default=True)
+    obrigatorio = models.BooleanField(default=True, verbose_name='obrigatório')
+    
+    class Meta:
+        unique_together = ('curriculo', 'disciplina')
+        
+    def __str__(self):
+        return u'%s de %s' % (self.disciplina, self.curriculo)
+        
+        
+class Turma(models.Model):
+    nome = models.CharField(max_length=255)
+    disciplina = models.ForeignKey(Disciplina)
+    periodo = models.ForeignKey(PeriodoLetivo)
+    turno = models.ForeignKey(Turno)
     
     class Meta:
         pass
         
     def __str__(self):
-        return u'%s de %s' % (self.disciplina, self.curriculo)
+        return self.nome
