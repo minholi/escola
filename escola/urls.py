@@ -21,4 +21,8 @@ urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', admin_site.urls),
+<<<<<<< HEAD
+=======
+    url(r'^chaining/', include('smart_selects.urls')),
+>>>>>>> origin/master
 ]

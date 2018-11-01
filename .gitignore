@@ -92,4 +92,8 @@ ENV/
 migrations/
 
 #sqlite3
+<<<<<<< HEAD
 *.sqlite3
+=======
+*.sqlite3
+>>>>>>> origin/master
