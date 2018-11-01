@@ -1,4 +1,6 @@
 from django.contrib import admin
+from escola.admin import admin_site
+from django.core.urlresolvers import resolve
 from curriculos.models import *
 
 class SerieInline(admin.TabularInline):
@@ -6,6 +8,13 @@ class SerieInline(admin.TabularInline):
     
 class ComponenteInline(admin.TabularInline):
     model = Componente
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        field = super(ComponenteInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        if db_field.name == 'serie':
+            resolved = resolve(request.path_info)
+            field.queryset = field.queryset.filter(curriculo=resolved.args[0])
+        return field
 
 class PeriodoLetivoAdmin(admin.ModelAdmin):
     list_display = ('nome', 'ano', 'periodo', 'inicio', 'termino', 'proximo')
@@ -17,6 +26,6 @@ class CurriculoAdmin(admin.ModelAdmin):
 class TurmaAdmin(admin.ModelAdmin):
     list_display = ('nome', 'disciplina', 'periodo', 'turno')
     
-admin.site.register(PeriodoLetivo, PeriodoLetivoAdmin)
-admin.site.register(Curriculo, CurriculoAdmin)
-admin.site.register(Turma, TurmaAdmin)
+admin_site.register(PeriodoLetivo, PeriodoLetivoAdmin)
+admin_site.register(Curriculo, CurriculoAdmin)
+admin_site.register(Turma, TurmaAdmin)

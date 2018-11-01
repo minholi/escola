@@ -1,6 +1,5 @@
 from django.db import models
 from basico.models import Curso, Turno, Disciplina
-from smart_selects.db_fields import ChainedForeignKey
 import datetime
 
 # Popula o choices usado nos campos de ano
@@ -54,15 +53,7 @@ class Serie(models.Model):
 class Componente(models.Model):
     curriculo = models.ForeignKey(Curriculo)
     disciplina = models.ForeignKey(Disciplina)
-    serie = ChainedForeignKey(
-        Serie, 
-        chained_field="curriculo",
-        chained_model_field="curriculo", 
-        show_all=False, 
-        auto_choose=True,
-        sort=True,
-        verbose_name='série'
-    )
+    serie = models.ForeignKey(Serie)
     obrigatorio = models.BooleanField(default=True, verbose_name='obrigatório')
     
     class Meta:
@@ -70,6 +61,7 @@ class Componente(models.Model):
         
     def __str__(self):
         return u'%s de %s' % (self.disciplina, self.curriculo)
+        
         
         
 class Turma(models.Model):
