@@ -1,4 +1,5 @@
 from django.contrib import admin
+from escola.admin import admin_site
 from basico.models import *
 
 class DisciplinaAdmin(admin.ModelAdmin):
@@ -15,6 +16,6 @@ class DisciplinaAdmin(admin.ModelAdmin):
         }),
     )
 
-admin.site.register(Curso)
-admin.site.register(Turno)
-admin.site.register(Disciplina, DisciplinaAdmin)
+admin_site.register(Curso)
+admin_site.register(Turno)
+admin_site.register(Disciplina, DisciplinaAdmin)

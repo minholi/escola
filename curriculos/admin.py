@@ -1,4 +1,5 @@
 from django.contrib import admin
+from escola.admin import admin_site
 from curriculos.models import *
 
 class SerieInline(admin.TabularInline):
@@ -17,6 +18,6 @@ class CurriculoAdmin(admin.ModelAdmin):
 class TurmaAdmin(admin.ModelAdmin):
     list_display = ('nome', 'disciplina', 'periodo', 'turno')
     
-admin.site.register(PeriodoLetivo, PeriodoLetivoAdmin)
-admin.site.register(Curriculo, CurriculoAdmin)
-admin.site.register(Turma, TurmaAdmin)
+admin_site.register(PeriodoLetivo, PeriodoLetivoAdmin)
+admin_site.register(Curriculo, CurriculoAdmin)
+admin_site.register(Turma, TurmaAdmin)
