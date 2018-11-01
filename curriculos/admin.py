@@ -1,9 +1,6 @@
 from django.contrib import admin
 from escola.admin import admin_site
-<<<<<<< HEAD
 from django.core.urlresolvers import resolve
-=======
->>>>>>> origin/master
 from curriculos.models import *
 
 class SerieInline(admin.TabularInline):
